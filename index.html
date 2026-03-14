@@ -3,127 +3,146 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EFIKCOIN ETERNAL | Professional Web3 Hub</title>
+    <title>EFIKCOIN ETERNAL | Professional Sovereign Hub</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.7.2/ethers.umd.min.js"></script>
     <style>
-        body { background: #020617; color: #f8fafc; font-family: sans-serif; }
-        .engine-card { background: #0f172a; border: 1px solid #334155; border-radius: 24px; padding: 24px; }
-        .gold-glow { border-color: #fbbf24; box-shadow: 0 0 15px rgba(251, 191, 36, 0.1); }
+        body { background: #030712; color: #f8fafc; font-family: 'Inter', sans-serif; }
+        .glass-panel { background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(12px); border: 1px solid rgba(251, 191, 36, 0.2); border-radius: 28px; }
+        .gold-text { color: #fbbf24; }
+        .btn-primary { background: #fbbf24; color: #000; font-weight: 800; transition: all 0.2s; }
+        .btn-primary:hover { background: #f59e0b; transform: translateY(-2px); }
     </style>
 </head>
-<body class="p-4 md:p-10">
+<body class="p-4 md:p-8 lg:p-12">
 
-    <nav class="max-w-6xl mx-auto flex justify-between items-center mb-12">
-        <div class="flex items-center gap-3">
-            <img src="https://raw.githubusercontent.com/Efikcoinofficialecosystem/efikcoin-eternal/main/1772019882787.png" class="w-12 h-12 rounded-full border-2 border-yellow-500">
-            <h1 class="text-2xl font-black text-yellow-500 tracking-tight">ECE ECOSYSTEM</h1>
+    <nav class="max-w-7xl mx-auto flex justify-between items-center mb-16">
+        <div class="flex items-center gap-4">
+            <img src="https://raw.githubusercontent.com/Efikcoinofficialecosystem/efikcoin-eternal/main/1772019882787.png" class="w-14 h-14 rounded-full border-2 border-yellow-500 shadow-lg">
+            <div>
+                <h1 class="text-2xl font-black gold-text leading-none uppercase">ECE LEGACY</h1>
+                <p class="text-[10px] tracking-[0.3em] text-gray-500 font-bold uppercase mt-1">Sovereign Ecosystem</p>
+            </div>
         </div>
-        <button id="connectBtn" class="bg-yellow-500 hover:bg-yellow-600 text-black font-bold py-3 px-8 rounded-2xl transition-all">
-            Connect Wallet
+        <button id="connectBtn" class="btn-primary py-3 px-8 rounded-2xl shadow-xl shadow-yellow-500/10">
+            CONNECT WALLET
         </button>
     </nav>
 
-    <div class="max-w-6xl mx-auto grid lg:grid-cols-2 gap-10">
+    <div class="max-w-7xl mx-auto grid lg:grid-cols-3 gap-8">
         
-        <div class="engine-card gold-glow">
-            <h2 class="text-xl font-bold mb-6 flex items-center gap-2">
-                <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span> Swap Terminal
-            </h2>
+        <div class="lg:col-span-2 glass-panel p-8">
+            <div class="flex justify-between items-center mb-8">
+                <h2 class="text-xl font-black uppercase">Professional Swap</h2>
+                <div class="text-xs bg-green-500/10 text-green-400 px-3 py-1 rounded-full border border-green-500/20 font-bold uppercase tracking-widest">Live Engine</div>
+            </div>
+            
             <div class="space-y-4">
-                <div class="bg-black/40 p-4 rounded-xl border border-gray-800">
-                    <label class="text-xs text-gray-500">Pay with BNB</label>
-                    <input id="swapInput" type="number" placeholder="0.0" class="w-full bg-transparent text-2xl font-bold outline-none mt-1">
+                <div class="bg-black/40 p-6 rounded-2xl border border-gray-800">
+                    <label class="text-xs font-bold text-gray-500 uppercase">Input Amount (BNB)</label>
+                    <input id="swapInput" type="number" placeholder="0.00" class="w-full bg-transparent text-3xl font-black outline-none mt-2">
                 </div>
-                <div class="bg-black/40 p-4 rounded-xl border border-gray-800">
-                    <label class="text-xs text-gray-500">Receive ECE</label>
-                    <input id="swapOutput" type="number" readonly placeholder="0.0" class="w-full bg-transparent text-2xl font-bold outline-none mt-1 text-yellow-500">
+                
+                <div class="flex justify-center -my-6 relative z-10">
+                    <div class="bg-yellow-500 p-3 rounded-full shadow-lg border-4 border-[#030712]">
+                        <svg class="w-6 h-6 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+                    </div>
                 </div>
-                <button onclick="executeSwap()" class="w-full bg-yellow-500 py-5 rounded-2xl text-black font-black text-lg hover:brightness-110 transition-all">
-                    CONFIRM TRANSACTION
-                </button>
+
+                <div class="bg-black/40 p-6 rounded-2xl border border-gray-800">
+                    <label class="text-xs font-bold text-gray-500 uppercase">Estimated ECE</label>
+                    <input id="swapOutput" type="number" readonly placeholder="0.00" class="w-full bg-transparent text-3xl font-black outline-none mt-2 gold-text">
+                </div>
+
+                <button onclick="executeSwap()" class="w-full btn-primary py-6 rounded-2xl text-xl mt-4">EXECUTE ON-CHAIN TRADE</button>
             </div>
         </div>
 
-        <div class="engine-card">
-            <h2 class="text-xl font-bold mb-6">Staking Rewards</h2>
-            <div class="grid grid-cols-2 gap-4 mb-6">
-                <div class="bg-slate-800/50 p-4 rounded-xl">
-                    <p class="text-xs text-gray-400">Total Staked</p>
-                    <p id="totalStaked" class="text-xl font-bold">0.00 ECE</p>
+        <div class="space-y-8">
+            <div class="glass-panel p-8">
+                <h3 class="text-lg font-black gold-text mb-6 uppercase">Eternal Staking</h3>
+                <div class="space-y-4 mb-6">
+                    <div class="flex justify-between">
+                        <span class="text-gray-500 text-sm">Your Staked Balance</span>
+                        <span class="font-bold">0.00 ECE</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-gray-500 text-sm">Reward Accrued</span>
+                        <span class="font-bold text-green-400">+0.00 ECE</span>
+                    </div>
                 </div>
-                <div class="bg-slate-800/50 p-4 rounded-xl">
-                    <p class="text-xs text-gray-400">Your APR</p>
-                    <p class="text-xl font-bold text-green-400">12.5%</p>
-                </div>
+                <button onclick="alert('Staking logic requires ABI. Paste it below to activate.')" class="w-full border-2 border-yellow-500/20 py-4 rounded-xl font-bold text-sm hover:bg-yellow-500/5 transition-all uppercase tracking-widest">Open Staking Sector</button>
             </div>
-            <button onclick="executeStake()" class="w-full border-2 border-yellow-500/30 py-4 rounded-2xl font-bold hover:bg-yellow-500/10 transition-all">
-                Stake EfikCoin Eternal
-            </button>
-        </div>
 
-    </div>
-
-    <div class="max-w-6xl mx-auto mt-10">
-        <div class="engine-card overflow-hidden">
-            <h3 class="text-lg font-bold mb-4">Live Transaction Ledger</h3>
-            <div id="ledger" class="text-sm font-mono text-gray-500 space-y-2">
-                [SYSTEM]: Engine initialized. Waiting for wallet connection...
+            <div class="glass-panel p-8 h-[300px] flex flex-col">
+                <h3 class="text-xs font-black text-gray-500 uppercase tracking-widest mb-4">Transaction Ledger</h3>
+                <div id="ledger" class="flex-grow font-mono text-[10px] text-gray-400 overflow-y-auto space-y-2 p-2 bg-black/20 rounded-xl">
+                    [SYSTEM]: Initializing Legacy Engine...<br>
+                    [SYSTEM]: Awaiting Wallet Connection...
+                </div>
             </div>
         </div>
     </div>
 
     <script>
-        // LEGACY CONFIGURATION
         const ECE_ADDRESS = "0x9F8C29E496ECB6C39c221458f211234DfCB233E0";
-        const ROUTER_ADDRESS = "0x10ED43C718714eb63d5aA57B78B54704E256024E"; // PancakeSwap V2 Router
-        
-        // [{"inputs":[{"internalType":"string","name":"name","type":"string"},{"internalType":"string","name":"symbol","type":"string"},{"internalType":"uint8","name":"decimals","type":"uint8"},{"internalType":"uint256","name":"supply","type":"uint256"},{"internalType":"address","name":"owner","type":"address"},{"internalType":"address","name":"feeWallet","type":"address"},{"internalType":"string","name":"metadata_ipfs_hash","type":"string"}],"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"owner","type":"address"},{"indexed":true,"internalType":"address","name":"spender","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Approval","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"string","name":"metadata_ipfs_hash","type":"string"}],"name":"MetadataUpdated","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"previousOwner","type":"address"},{"indexed":true,"internalType":"address","name":"newOwner","type":"address"}],"name":"OwnershipTransferred","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"address","name":"owner","type":"address"}],"name":"TeamFinanceTokenMint","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"from","type":"address"},{"indexed":true,"internalType":"address","name":"to","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Transfer","type":"event"},{"inputs":[{"internalType":"address","name":"owner","type":"address"},{"internalType":"address","name":"spender","type":"address"}],"name":"allowance","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"approve","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"account","type":"address"}],"name":"balanceOf","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"burn","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"account","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"burnFrom","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"decimals","outputs":[{"internalType":"uint8","name":"","type":"uint8"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"subtractedValue","type":"uint256"}],"name":"decreaseAllowance","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"addedValue","type":"uint256"}],"name":"increaseAllowance","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"metadata","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"metadata_ipfs_hash","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"mint","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"name","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"renounceOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"symbol","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"totalSupply","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"recipient","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"transfer","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"sender","type":"address"},{"internalType":"address","name":"recipient","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"transferFrom","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"string","name":"metadata_ipfs_hash","type":"string"}],"name":"updateMetadata","outputs":[],"stateMutability":"nonpayable","type":"function"}]
-        const ECE_ABI = [ "function approve(address spender, uint256 amount) public returns (bool)" ]; 
-        const ROUTER_ABI = [ "function swapExactETHForTokens(uint amountOutMin, address[] calldata path, address to, uint deadline) external payable returns (uint[] memory amounts)" ];
+        const PANCAKE_ROUTER = "0x10ED43C718714eb63d5aA57B78B54704E256024E";
 
-        let signer;
-        let provider;
+        // COMPLETE ROUTER ABI - This fixes the "router.WETH is not a function" error
+        const ROUTER_ABI = [
+            "function WETH() external pure returns (address)",
+            "function swapExactETHForTokens(uint amountOutMin, address[] calldata path, address to, uint deadline) external payable returns (uint[] memory amounts)",
+            "function getAmountsOut(uint amountIn, address[] calldata path) external view returns (uint[] memory amounts)"
+        ];
+
+        let signer, provider;
 
         async function connect() {
             if (window.ethereum) {
                 provider = new ethers.providers.Web3Provider(window.ethereum);
                 await provider.send("eth_requestAccounts", []);
                 signer = provider.getSigner();
-                const addr = await signer.getAddress();
-                document.getElementById('connectBtn').innerText = addr.slice(0,6) + "..." + addr.slice(-4);
-                logToLedger("Wallet connected: " + addr);
+                const address = await signer.getAddress();
+                document.getElementById('connectBtn').innerText = address.slice(0,6) + "..." + address.slice(-4);
+                logToLedger("CONNECTED: " + address);
+            } else {
+                alert("Please install TrustWallet or MetaMask");
             }
         }
 
         async function executeSwap() {
             if (!signer) return alert("Connect Wallet First");
-            const amount = document.getElementById('swapInput').value;
-            const router = new ethers.Contract(ROUTER_ADDRESS, ROUTER_ABI, signer);
-            
-            logToLedger("Initiating Swap for " + amount + " BNB...");
-            
+            const val = document.getElementById('swapInput').value;
+            if (!val || val <= 0) return alert("Enter valid amount");
+
+            const router = new ethers.Contract(PANCAKE_ROUTER, ROUTER_ABI, signer);
+            logToLedger("CALLING BLOCKCHAIN ENGINE...");
+
             try {
-                const path = [await router.WETH(), ECE_ADDRESS];
-                const deadline = Math.floor(Date.now() / 1000) + 60 * 20; // 20 mins
+                const wethAddress = await router.WETH(); // This now works!
+                const path = [wethAddress, ECE_ADDRESS];
+                const deadline = Math.floor(Date.now() / 1000) + 60 * 20;
+
                 const tx = await router.swapExactETHForTokens(
-                    0, // In production, calculate amountOutMin for slippage protection
+                    0, 
                     path,
                     await signer.getAddress(),
                     deadline,
-                    { value: ethers.utils.parseEther(amount) }
+                    { value: ethers.utils.parseEther(val) }
                 );
-                logToLedger("TX Sent: " + tx.hash);
+
+                logToLedger("TX PENDING: " + tx.hash);
                 await tx.wait();
-                logToLedger("TX Confirmed!");
-            } catch (e) {
-                logToLedger("Error: " + e.message);
+                logToLedger("SUCCESS: Transaction confirmed on BSC!");
+            } catch (err) {
+                logToLedger("ERROR: " + (err.reason || err.message));
             }
         }
 
         function logToLedger(msg) {
             const l = document.getElementById('ledger');
-            l.innerHTML += `<div class="border-b border-gray-800 pb-1">> ${msg}</div>`;
+            l.innerHTML += `> ${msg}<br>`;
+            l.scrollTop = l.scrollHeight;
         }
 
         document.getElementById('connectBtn').onclick = connect;
