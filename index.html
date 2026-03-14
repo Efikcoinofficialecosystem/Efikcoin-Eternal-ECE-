@@ -1,13 +1,133 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite App</title>
-  </head>
-  <body>
-    <div id="app"></div>
-    <script type="module" src="/src/index.ts"></script>
-  </body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EFIKCOIN ETERNAL | Legacy Web3 Engine</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.7.2/ethers.umd.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Space Grotesk', sans-serif; background: #050a15; color: #e2e8f0; }
+        .gold-glow { box-shadow: 0 0 20px rgba(255, 215, 0, 0.15); border: 1px solid #ffd70033; }
+        .tab-active { border-bottom: 3px solid #ffd700; color: #ffd700; }
+        .live-indicator { height: 8px; width: 8px; background: #10b981; border-radius: 50%; display: inline-block; margin-right: 8px; animation: pulse 2s infinite; }
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
+    </style>
+</head>
+<body>
+
+    <nav class="border-b border-gray-800 bg-black/60 backdrop-blur-xl sticky top-0 z-50 p-4">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <img src="https://raw.githubusercontent.com/Efikcoinofficialecosystem/efikcoin-eternal/main/1772019882787.png" class="w-10 h-10 rounded-full border border-yellow-500">
+                <span class="font-bold text-xl tracking-tighter text-yellow-500">ECE LEGACY</span>
+            </div>
+            <button id="connectBtn" class="bg-yellow-600 hover:bg-yellow-500 text-black font-bold py-2 px-6 rounded-full transition-all text-sm">
+                Connect Wallet
+            </button>
+        </div>
+    </nav>
+
+    <main class="max-w-6xl mx-auto p-6">
+        
+        <div class="bg-gray-900/50 rounded-lg p-3 mb-8 flex items-center justify-between text-xs">
+            <div><span class="live-indicator"></span> Network: <span class="text-yellow-500">BSC Mainnet</span></div>
+            <div>ECE: <span id="priceTick" class="text-green-400">Loading Engine...</span></div>
+        </div>
+
+        <div class="flex gap-8 mb-10 border-b border-gray-800">
+            <button onclick="showSector('trade')" id="tab-trade" class="pb-4 tab-active font-bold">EXCHANGE</button>
+            <button onclick="showSector('staking')" id="tab-staking" class="pb-4 text-gray-500 hover:text-white transition-all font-bold">STAKING</button>
+            <button onclick="showSector('history')" id="tab-history" class="pb-4 text-gray-500 hover:text-white transition-all font-bold">RECORDS</button>
+        </div>
+
+        <section id="sector-trade" class="grid lg:grid-cols-2 gap-12">
+            <div class="space-y-6">
+                <h2 class="text-4xl font-bold">Legacy <span class="text-yellow-500">Swap</span></h2>
+                <p class="text-gray-400">Trade ECE tokens instantly. No middleman. Direct-to-Contract technology.</p>
+                <div class="bg-gray-900 p-6 rounded-3xl gold-glow space-y-4">
+                    <div>
+                        <label class="text-xs text-gray-500">From (BNB)</label>
+                        <input type="number" placeholder="0.0" class="w-full bg-black/40 border border-gray-800 p-4 rounded-xl mt-2 text-2xl outline-none focus:border-yellow-500">
+                    </div>
+                    <div class="text-center text-yellow-500 text-xl">↓</div>
+                    <div>
+                        <label class="text-xs text-gray-500">To (ECE)</label>
+                        <input type="number" readonly placeholder="0.0" class="w-full bg-black/40 border border-gray-800 p-4 rounded-xl mt-2 text-2xl outline-none">
+                    </div>
+                    <button class="w-full bg-yellow-600 py-4 rounded-2xl font-bold text-black hover:bg-yellow-500 transition-all mt-4">Execute Trade</button>
+                </div>
+            </div>
+            <div class="hidden lg:block bg-gray-900/20 rounded-3xl border border-gray-800 p-10">
+                <h3 class="text-xl font-bold mb-4">Market Orders</h3>
+                <div class="space-y-4 opacity-50">
+                    <div class="flex justify-between border-b border-gray-800 pb-2"><span>Limit Order</span> <span class="text-yellow-500">Locked</span></div>
+                    <div class="flex justify-between border-b border-gray-800 pb-2"><span>Slippage Control</span> <span>0.5%</span></div>
+                    <div class="flex justify-between"><span>Liquidity Pair</span> <span class="text-xs">0x7fabe...70b6</span></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="sector-staking" class="hidden grid lg:grid-cols-3 gap-6">
+            <div class="lg:col-span-2 space-y-6">
+                <h2 class="text-4xl font-bold text-yellow-500">Eternal Staking</h2>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div class="bg-gray-900 p-6 rounded-2xl border border-gray-800">
+                        <p class="text-gray-500">Total Staked</p>
+                        <p class="text-3xl font-bold">0.00 ECE</p>
+                    </div>
+                    <div class="bg-gray-900 p-6 rounded-2xl border border-gray-800">
+                        <p class="text-gray-500">Your Rewards</p>
+                        <p class="text-3xl font-bold text-green-500">0.00 ECE</p>
+                    </div>
+                </div>
+                <div class="bg-gray-900 p-6 rounded-3xl gold-glow">
+                    <input type="number" placeholder="Amount to Stake" class="w-full bg-black/40 border border-gray-800 p-4 rounded-xl text-xl mb-4">
+                    <button class="w-full bg-white text-black py-4 rounded-xl font-bold">Stake ECE Tokens</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="sector-history" class="hidden">
+            <h2 class="text-4xl font-bold mb-6">Transaction <span class="text-yellow-500">Records</span></h2>
+            <div class="bg-gray-900 rounded-3xl border border-gray-800 overflow-hidden">
+                <table class="w-full text-left">
+                    <thead class="bg-black/40 text-gray-500 text-sm">
+                        <tr><th class="p-4">Type</th><th class="p-4">Amount</th><th class="p-4">Status</th><th class="p-4">Hash</th></tr>
+                    </thead>
+                    <tbody class="text-sm">
+                        <tr><td class="p-4 italic text-gray-600" colspan="4">No recent records found for this wallet...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        // Core Logic
+        function showSector(sector) {
+            ['trade', 'staking', 'history'].forEach(s => {
+                document.getElementById('sector-' + s).classList.add('hidden');
+                document.getElementById('tab-' + s).classList.remove('tab-active');
+                document.getElementById('tab-' + s).classList.add('text-gray-500');
+            });
+            document.getElementById('sector-' + sector).classList.remove('hidden');
+            document.getElementById('tab-' + sector).classList.add('tab-active');
+        }
+
+        // Legacy Wallet Connect (Ethers.js)
+        const connectBtn = document.getElementById('connectBtn');
+        connectBtn.onclick = async () => {
+            if (window.ethereum) {
+                try {
+                    const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+                    connectBtn.innerText = accounts[0].substring(0, 6) + '...' + accounts[0].substring(38);
+                    connectBtn.classList.add('bg-green-600');
+                } catch (err) { alert("Connection Failed"); }
+            } else { alert("Please install TrustWallet or MetaMask"); }
+        };
+    </script>
+</body>
 </html>
