@@ -3,131 +3,130 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EFIKCOIN ETERNAL | Legacy Web3 Engine</title>
+    <title>EFIKCOIN ETERNAL | Professional Web3 Hub</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.7.2/ethers.umd.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Space Grotesk', sans-serif; background: #050a15; color: #e2e8f0; }
-        .gold-glow { box-shadow: 0 0 20px rgba(255, 215, 0, 0.15); border: 1px solid #ffd70033; }
-        .tab-active { border-bottom: 3px solid #ffd700; color: #ffd700; }
-        .live-indicator { height: 8px; width: 8px; background: #10b981; border-radius: 50%; display: inline-block; margin-right: 8px; animation: pulse 2s infinite; }
-        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
+        body { background: #020617; color: #f8fafc; font-family: sans-serif; }
+        .engine-card { background: #0f172a; border: 1px solid #334155; border-radius: 24px; padding: 24px; }
+        .gold-glow { border-color: #fbbf24; box-shadow: 0 0 15px rgba(251, 191, 36, 0.1); }
     </style>
 </head>
-<body>
+<body class="p-4 md:p-10">
 
-    <nav class="border-b border-gray-800 bg-black/60 backdrop-blur-xl sticky top-0 z-50 p-4">
-        <div class="max-w-7xl mx-auto flex justify-between items-center">
-            <div class="flex items-center gap-3">
-                <img src="https://raw.githubusercontent.com/Efikcoinofficialecosystem/efikcoin-eternal/main/1772019882787.png" class="w-10 h-10 rounded-full border border-yellow-500">
-                <span class="font-bold text-xl tracking-tighter text-yellow-500">ECE LEGACY</span>
-            </div>
-            <button id="connectBtn" class="bg-yellow-600 hover:bg-yellow-500 text-black font-bold py-2 px-6 rounded-full transition-all text-sm">
-                Connect Wallet
-            </button>
+    <nav class="max-w-6xl mx-auto flex justify-between items-center mb-12">
+        <div class="flex items-center gap-3">
+            <img src="https://raw.githubusercontent.com/Efikcoinofficialecosystem/efikcoin-eternal/main/1772019882787.png" class="w-12 h-12 rounded-full border-2 border-yellow-500">
+            <h1 class="text-2xl font-black text-yellow-500 tracking-tight">ECE ECOSYSTEM</h1>
         </div>
+        <button id="connectBtn" class="bg-yellow-500 hover:bg-yellow-600 text-black font-bold py-3 px-8 rounded-2xl transition-all">
+            Connect Wallet
+        </button>
     </nav>
 
-    <main class="max-w-6xl mx-auto p-6">
+    <div class="max-w-6xl mx-auto grid lg:grid-cols-2 gap-10">
         
-        <div class="bg-gray-900/50 rounded-lg p-3 mb-8 flex items-center justify-between text-xs">
-            <div><span class="live-indicator"></span> Network: <span class="text-yellow-500">BSC Mainnet</span></div>
-            <div>ECE: <span id="priceTick" class="text-green-400">Loading Engine...</span></div>
+        <div class="engine-card gold-glow">
+            <h2 class="text-xl font-bold mb-6 flex items-center gap-2">
+                <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span> Swap Terminal
+            </h2>
+            <div class="space-y-4">
+                <div class="bg-black/40 p-4 rounded-xl border border-gray-800">
+                    <label class="text-xs text-gray-500">Pay with BNB</label>
+                    <input id="swapInput" type="number" placeholder="0.0" class="w-full bg-transparent text-2xl font-bold outline-none mt-1">
+                </div>
+                <div class="bg-black/40 p-4 rounded-xl border border-gray-800">
+                    <label class="text-xs text-gray-500">Receive ECE</label>
+                    <input id="swapOutput" type="number" readonly placeholder="0.0" class="w-full bg-transparent text-2xl font-bold outline-none mt-1 text-yellow-500">
+                </div>
+                <button onclick="executeSwap()" class="w-full bg-yellow-500 py-5 rounded-2xl text-black font-black text-lg hover:brightness-110 transition-all">
+                    CONFIRM TRANSACTION
+                </button>
+            </div>
         </div>
 
-        <div class="flex gap-8 mb-10 border-b border-gray-800">
-            <button onclick="showSector('trade')" id="tab-trade" class="pb-4 tab-active font-bold">EXCHANGE</button>
-            <button onclick="showSector('staking')" id="tab-staking" class="pb-4 text-gray-500 hover:text-white transition-all font-bold">STAKING</button>
-            <button onclick="showSector('history')" id="tab-history" class="pb-4 text-gray-500 hover:text-white transition-all font-bold">RECORDS</button>
+        <div class="engine-card">
+            <h2 class="text-xl font-bold mb-6">Staking Rewards</h2>
+            <div class="grid grid-cols-2 gap-4 mb-6">
+                <div class="bg-slate-800/50 p-4 rounded-xl">
+                    <p class="text-xs text-gray-400">Total Staked</p>
+                    <p id="totalStaked" class="text-xl font-bold">0.00 ECE</p>
+                </div>
+                <div class="bg-slate-800/50 p-4 rounded-xl">
+                    <p class="text-xs text-gray-400">Your APR</p>
+                    <p class="text-xl font-bold text-green-400">12.5%</p>
+                </div>
+            </div>
+            <button onclick="executeStake()" class="w-full border-2 border-yellow-500/30 py-4 rounded-2xl font-bold hover:bg-yellow-500/10 transition-all">
+                Stake EfikCoin Eternal
+            </button>
         </div>
 
-        <section id="sector-trade" class="grid lg:grid-cols-2 gap-12">
-            <div class="space-y-6">
-                <h2 class="text-4xl font-bold">Legacy <span class="text-yellow-500">Swap</span></h2>
-                <p class="text-gray-400">Trade ECE tokens instantly. No middleman. Direct-to-Contract technology.</p>
-                <div class="bg-gray-900 p-6 rounded-3xl gold-glow space-y-4">
-                    <div>
-                        <label class="text-xs text-gray-500">From (BNB)</label>
-                        <input type="number" placeholder="0.0" class="w-full bg-black/40 border border-gray-800 p-4 rounded-xl mt-2 text-2xl outline-none focus:border-yellow-500">
-                    </div>
-                    <div class="text-center text-yellow-500 text-xl">↓</div>
-                    <div>
-                        <label class="text-xs text-gray-500">To (ECE)</label>
-                        <input type="number" readonly placeholder="0.0" class="w-full bg-black/40 border border-gray-800 p-4 rounded-xl mt-2 text-2xl outline-none">
-                    </div>
-                    <button class="w-full bg-yellow-600 py-4 rounded-2xl font-bold text-black hover:bg-yellow-500 transition-all mt-4">Execute Trade</button>
-                </div>
-            </div>
-            <div class="hidden lg:block bg-gray-900/20 rounded-3xl border border-gray-800 p-10">
-                <h3 class="text-xl font-bold mb-4">Market Orders</h3>
-                <div class="space-y-4 opacity-50">
-                    <div class="flex justify-between border-b border-gray-800 pb-2"><span>Limit Order</span> <span class="text-yellow-500">Locked</span></div>
-                    <div class="flex justify-between border-b border-gray-800 pb-2"><span>Slippage Control</span> <span>0.5%</span></div>
-                    <div class="flex justify-between"><span>Liquidity Pair</span> <span class="text-xs">0x7fabe...70b6</span></div>
-                </div>
-            </div>
-        </section>
+    </div>
 
-        <section id="sector-staking" class="hidden grid lg:grid-cols-3 gap-6">
-            <div class="lg:col-span-2 space-y-6">
-                <h2 class="text-4xl font-bold text-yellow-500">Eternal Staking</h2>
-                <div class="grid md:grid-cols-2 gap-4">
-                    <div class="bg-gray-900 p-6 rounded-2xl border border-gray-800">
-                        <p class="text-gray-500">Total Staked</p>
-                        <p class="text-3xl font-bold">0.00 ECE</p>
-                    </div>
-                    <div class="bg-gray-900 p-6 rounded-2xl border border-gray-800">
-                        <p class="text-gray-500">Your Rewards</p>
-                        <p class="text-3xl font-bold text-green-500">0.00 ECE</p>
-                    </div>
-                </div>
-                <div class="bg-gray-900 p-6 rounded-3xl gold-glow">
-                    <input type="number" placeholder="Amount to Stake" class="w-full bg-black/40 border border-gray-800 p-4 rounded-xl text-xl mb-4">
-                    <button class="w-full bg-white text-black py-4 rounded-xl font-bold">Stake ECE Tokens</button>
-                </div>
+    <div class="max-w-6xl mx-auto mt-10">
+        <div class="engine-card overflow-hidden">
+            <h3 class="text-lg font-bold mb-4">Live Transaction Ledger</h3>
+            <div id="ledger" class="text-sm font-mono text-gray-500 space-y-2">
+                [SYSTEM]: Engine initialized. Waiting for wallet connection...
             </div>
-        </section>
-
-        <section id="sector-history" class="hidden">
-            <h2 class="text-4xl font-bold mb-6">Transaction <span class="text-yellow-500">Records</span></h2>
-            <div class="bg-gray-900 rounded-3xl border border-gray-800 overflow-hidden">
-                <table class="w-full text-left">
-                    <thead class="bg-black/40 text-gray-500 text-sm">
-                        <tr><th class="p-4">Type</th><th class="p-4">Amount</th><th class="p-4">Status</th><th class="p-4">Hash</th></tr>
-                    </thead>
-                    <tbody class="text-sm">
-                        <tr><td class="p-4 italic text-gray-600" colspan="4">No recent records found for this wallet...</td></tr>
-                    </tbody>
-                </table>
-            </div>
-        </section>
-
-    </main>
+        </div>
+    </div>
 
     <script>
-        // Core Logic
-        function showSector(sector) {
-            ['trade', 'staking', 'history'].forEach(s => {
-                document.getElementById('sector-' + s).classList.add('hidden');
-                document.getElementById('tab-' + s).classList.remove('tab-active');
-                document.getElementById('tab-' + s).classList.add('text-gray-500');
-            });
-            document.getElementById('sector-' + sector).classList.remove('hidden');
-            document.getElementById('tab-' + sector).classList.add('tab-active');
+        // LEGACY CONFIGURATION
+        const ECE_ADDRESS = "0x9F8C29E496ECB6C39c221458f211234DfCB233E0";
+        const ROUTER_ADDRESS = "0x10ED43C718714eb63d5aA57B78B54704E256024E"; // PancakeSwap V2 Router
+        
+        // [{"inputs":[{"internalType":"string","name":"name","type":"string"},{"internalType":"string","name":"symbol","type":"string"},{"internalType":"uint8","name":"decimals","type":"uint8"},{"internalType":"uint256","name":"supply","type":"uint256"},{"internalType":"address","name":"owner","type":"address"},{"internalType":"address","name":"feeWallet","type":"address"},{"internalType":"string","name":"metadata_ipfs_hash","type":"string"}],"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"owner","type":"address"},{"indexed":true,"internalType":"address","name":"spender","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Approval","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"string","name":"metadata_ipfs_hash","type":"string"}],"name":"MetadataUpdated","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"previousOwner","type":"address"},{"indexed":true,"internalType":"address","name":"newOwner","type":"address"}],"name":"OwnershipTransferred","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"address","name":"owner","type":"address"}],"name":"TeamFinanceTokenMint","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"from","type":"address"},{"indexed":true,"internalType":"address","name":"to","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Transfer","type":"event"},{"inputs":[{"internalType":"address","name":"owner","type":"address"},{"internalType":"address","name":"spender","type":"address"}],"name":"allowance","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"approve","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"account","type":"address"}],"name":"balanceOf","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"burn","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"account","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"burnFrom","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"decimals","outputs":[{"internalType":"uint8","name":"","type":"uint8"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"subtractedValue","type":"uint256"}],"name":"decreaseAllowance","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"addedValue","type":"uint256"}],"name":"increaseAllowance","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"metadata","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"metadata_ipfs_hash","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"mint","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"name","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"renounceOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"symbol","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"totalSupply","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"recipient","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"transfer","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"sender","type":"address"},{"internalType":"address","name":"recipient","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"transferFrom","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"string","name":"metadata_ipfs_hash","type":"string"}],"name":"updateMetadata","outputs":[],"stateMutability":"nonpayable","type":"function"}]
+        const ECE_ABI = [ "function approve(address spender, uint256 amount) public returns (bool)" ]; 
+        const ROUTER_ABI = [ "function swapExactETHForTokens(uint amountOutMin, address[] calldata path, address to, uint deadline) external payable returns (uint[] memory amounts)" ];
+
+        let signer;
+        let provider;
+
+        async function connect() {
+            if (window.ethereum) {
+                provider = new ethers.providers.Web3Provider(window.ethereum);
+                await provider.send("eth_requestAccounts", []);
+                signer = provider.getSigner();
+                const addr = await signer.getAddress();
+                document.getElementById('connectBtn').innerText = addr.slice(0,6) + "..." + addr.slice(-4);
+                logToLedger("Wallet connected: " + addr);
+            }
         }
 
-        // Legacy Wallet Connect (Ethers.js)
-        const connectBtn = document.getElementById('connectBtn');
-        connectBtn.onclick = async () => {
-            if (window.ethereum) {
-                try {
-                    const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-                    connectBtn.innerText = accounts[0].substring(0, 6) + '...' + accounts[0].substring(38);
-                    connectBtn.classList.add('bg-green-600');
-                } catch (err) { alert("Connection Failed"); }
-            } else { alert("Please install TrustWallet or MetaMask"); }
-        };
+        async function executeSwap() {
+            if (!signer) return alert("Connect Wallet First");
+            const amount = document.getElementById('swapInput').value;
+            const router = new ethers.Contract(ROUTER_ADDRESS, ROUTER_ABI, signer);
+            
+            logToLedger("Initiating Swap for " + amount + " BNB...");
+            
+            try {
+                const path = [await router.WETH(), ECE_ADDRESS];
+                const deadline = Math.floor(Date.now() / 1000) + 60 * 20; // 20 mins
+                const tx = await router.swapExactETHForTokens(
+                    0, // In production, calculate amountOutMin for slippage protection
+                    path,
+                    await signer.getAddress(),
+                    deadline,
+                    { value: ethers.utils.parseEther(amount) }
+                );
+                logToLedger("TX Sent: " + tx.hash);
+                await tx.wait();
+                logToLedger("TX Confirmed!");
+            } catch (e) {
+                logToLedger("Error: " + e.message);
+            }
+        }
+
+        function logToLedger(msg) {
+            const l = document.getElementById('ledger');
+            l.innerHTML += `<div class="border-b border-gray-800 pb-1">> ${msg}</div>`;
+        }
+
+        document.getElementById('connectBtn').onclick = connect;
     </script>
 </body>
 </html>
