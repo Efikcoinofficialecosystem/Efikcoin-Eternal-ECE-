@@ -42,7 +42,6 @@
     </div>
 
     <div id="main-dapp" class="hidden">
-        
         <div class="card">
             <h2>Multi-Network Wallet Bridge</h2>
             <button id="connect-btn" onclick="connectWallet()">Connect Real Wallet (MetaMask / Trust)</button>
@@ -84,7 +83,6 @@
 </div>
 
 <script>
-    // --- OFFICIAL PRODUCTION CONFIG ---
     const PK = "8yNS7zwYWRbgGGzxG";
     const SID = "service_307uo4r";
     const TID = "template_ubjagyg";
@@ -98,14 +96,20 @@
         new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
     }
 
-    // IDENTITY SECURITY
     async function sendOTP() {
         const email = document.getElementById('user-email').value;
         if(!email) return alert("Enter email.");
         activeOTP = Math.floor(100000 + Math.random() * 900000);
-        await emailjs.send(SID, TID, { to_email: email, message: "Your Efikcoin Eternal Access Code: " + activeOTP });
+        
+        // --- FIX: Sending variable "otp_code" to match your template ---
+        await emailjs.send(SID, TID, { 
+            to_email: email, 
+            otp_code: activeOTP, 
+            message: "Your Access Code: " + activeOTP 
+        });
+        
         document.getElementById('otp-section').classList.remove('hidden');
-        alert("Security OTP Transmitted to " + email);
+        alert("OTP Sent! Check your email for the code.");
     }
 
     function verifyAccess() {
@@ -115,24 +119,19 @@
         if(inputOTP == activeOTP) {
             document.getElementById('auth-gate').classList.add('hidden');
             document.getElementById('main-dapp').classList.remove('hidden');
-            
-            // AUTOMATIC ADMIN UNLOCK
             if(email === MASTER_GMAIL) {
                 document.getElementById('admin-panel').classList.remove('hidden');
-                addLog("MASTER ADMIN SESSION AUTHORIZED.");
             }
         } else { alert("Invalid Access Code."); }
     }
 
-    // BLOCKCHAIN INTERACTION (REAL TRANSFERS)
     async function connectWallet() {
         if (window.ethereum) {
             const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
             userWallet = accounts[0];
             document.getElementById('wallet-status').innerText = "Active: " + userWallet;
             document.getElementById('l-wallet').value = userWallet;
-            addLog("Web3 Wallet Connected: " + userWallet);
-        } else { alert("Please install Trust Wallet or MetaMask."); }
+        } else { alert("Install Trust Wallet or MetaMask."); }
     }
 
     async function executeSwap() {
@@ -140,22 +139,14 @@
         window.ethereum.request({
             method: 'eth_sendTransaction',
             params: [{ from: userWallet, to: ECE_CONTRACT, value: '0x0' }]
-        }).then(tx => addLog("Transaction Broadcast: " + tx))
-          .catch(e => addLog("Transaction Cancelled."));
-    }
-
-    // KYC SUBMISSION (DIRECT TO YOUR DEVICE)
-    async function submitKYC() {
-        const form = document.getElementById('loan-form');
-        addLog("Transmitting Identity Data to Master Admin...");
-        emailjs.sendForm(SID, TID, form).then(() => {
-            alert("Application and ID Credentials Transmitted. Admin has been notified.");
-            addLog("KYC Packet Sent successfully.");
         });
     }
 
-    function addLog(msg) {
-        document.getElementById('sys-logs').innerHTML += `<br>> ${new Date().toLocaleTimeString()}: ${msg}`;
+    async function submitKYC() {
+        const form = document.getElementById('loan-form');
+        emailjs.sendForm(SID, TID, form).then(() => {
+            alert("Application and ID Credentials Transmitted.");
+        });
     }
 </script>
 </body>
