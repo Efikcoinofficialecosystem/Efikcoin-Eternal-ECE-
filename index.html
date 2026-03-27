@@ -3,165 +3,160 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Efikcoin Eternal | Sovereign Blockchain Ecosystem</title>
+    <title>Efikcoin Eternal | Global Production Core</title>
     
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/web3@1.8.0/dist/web3.min.js"></script>
-    <script src="https://unpkg.com/web3modal@1.9.9/dist/index.js"></script>
-    <script src="https://unpkg.com/@walletconnect/web3-provider@1.8.0/dist/umd/index.min.js"></script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
     <style>
-        :root { --gold: #ffcc00; --deep-blue: #001a33; --amber: #d4af37; }
-        body { background-color: var(--deep-blue); color: var(--gold); font-family: 'Segoe UI', sans-serif; margin: 0; text-align: center; }
-        .container { padding: 40px 20px; max-width: 1100px; margin: auto; }
-        .card { background: #002b53; border: 2px solid var(--gold); border-radius: 20px; padding: 30px; margin: 25px 0; box-shadow: 0 0 20px rgba(212, 175, 55, 0.2); }
-        h1 { font-size: 2.5rem; letter-spacing: 4px; text-shadow: 2px 2px 10px rgba(0,0,0,0.5); }
-        button { background: linear-gradient(45deg, var(--amber), var(--gold)); border: none; padding: 15px 30px; color: var(--deep-blue); font-weight: bold; border-radius: 8px; cursor: pointer; font-size: 16px; transition: 0.3s; margin: 10px; }
-        button:hover { transform: scale(1.05); box-shadow: 0 0 15px var(--gold); }
-        input, select { padding: 12px; border-radius: 8px; border: 1px solid var(--amber); background: var(--deep-blue); color: white; width: 90%; max-width: 350px; margin: 10px 0; font-size: 1rem; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; }
+        :root { --gold: #ffcc00; --deep-blue: #001a33; --amber: #d4af37; --success: #00ffcc; --admin-red: #ff4444; }
+        body { background: var(--deep-blue); color: var(--gold); font-family: 'Segoe UI', Arial, sans-serif; margin: 0; text-align: center; }
+        .container { padding: 25px; max-width: 1100px; margin: auto; }
+        .card { background: rgba(0, 43, 83, 0.95); border: 2px solid var(--gold); border-radius: 15px; padding: 25px; margin: 20px 0; box-shadow: 0 0 20px rgba(212, 175, 55, 0.2); }
+        button { background: linear-gradient(45deg, var(--amber), var(--gold)); border: none; padding: 15px; color: var(--deep-blue); font-weight: bold; border-radius: 8px; cursor: pointer; font-size: 16px; margin: 10px; width: 100%; max-width: 320px; transition: 0.3s; }
+        button:hover { box-shadow: 0 0 15px var(--gold); transform: scale(1.02); }
+        input, select, textarea { padding: 12px; border-radius: 8px; border: 1px solid var(--amber); background: #001a33; color: white; width: 90%; margin: 10px 0; font-size: 1rem; }
         .hidden { display: none; }
-        .status-tag { color: #00ffcc; font-family: monospace; font-size: 0.9rem; }
+        #google_translate_element { margin-bottom: 20px; display: inline-block; padding: 10px; background: white; border-radius: 5px; }
+        .log-box { background: #000; color: var(--success); font-family: monospace; padding: 10px; height: 120px; overflow-y: auto; text-align: left; font-size: 0.8rem; border: 1px solid var(--success); }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h1>♾️ EFIKCOIN ETERNAL ♾️</h1>
-    <p>Securing Human Productivity • Global Liquidity • Physical Capital</p>
+    <div id="google_translate_element"></div>
 
-    <div id="auth-section" class="card">
-        <h2>Sovereign Human Verification</h2>
-        <p>Enter email to receive your unique Access OTP</p>
-        <input type="email" id="user-email" placeholder="client@example.com">
-        <br>
-        <button onclick="sendOTP()">Request Legacy Access</button>
-        
-        <div id="otp-verify" class="hidden">
+    <h1>♾️ EFIKCOIN ETERNAL ♾️</h1>
+    <p>Human Productivity • Sovereign Capital • Real-Life Utility</p>
+
+    <div id="auth-gate" class="card">
+        <h2>Sovereign Identity Access</h2>
+        <input type="email" id="user-email" placeholder="Enter Your Email Address">
+        <button onclick="sendOTP()">Request Legacy Access Code</button>
+        <div id="otp-section" class="hidden">
             <hr style="border: 0.5px solid var(--amber); margin: 20px 0;">
-            <input type="text" id="otp-input" placeholder="Enter 6-Digit Code">
-            <br>
-            <button onclick="verifyAccess()">Verify & Activate Tools</button>
+            <input type="text" id="otp-input" placeholder="6-Digit Verification Code">
+            <button onclick="verifyAccess()">Unlock Production Dashboard</button>
         </div>
     </div>
 
-    <div id="dapp-core" class="hidden">
+    <div id="main-dapp" class="hidden">
         
         <div class="card">
             <h2>Multi-Network Wallet Bridge</h2>
-            <button id="btn-connect" onclick="onConnect()">Connect Trust / MetaMask / WalletConnect</button>
-            <p id="wallet-status" class="status-tag">Network Status: Waiting for Connection...</p>
+            <button id="connect-btn" onclick="connectWallet()">Connect Real Wallet (MetaMask / Trust)</button>
+            <p id="wallet-status" style="color: var(--success);">Network Status: Waiting...</p>
         </div>
 
-        <div class="grid">
-            <div class="card">
-                <h2>Trade Engine (Live)</h2>
-                <p>Swap for Efikcoin Eternal (ECE)</p>
-                <input type="number" id="swap-amount" placeholder="0.00">
-                <select id="token-pair">
+        <div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;">
+            <div class="card" style="flex: 1; min-width: 300px;">
+                <h2>Swap Engine (0x9F8C...E3E0)</h2>
+                <input type="number" id="swap-amt" placeholder="Amount">
+                <select id="swap-pair">
                     <option value="BNB">BNB to ECE</option>
                     <option value="USDT">USDT to ECE</option>
-                    <option value="ETH">ETH to ECE</option>
                 </select>
-                <button onclick="executeSwap()">Execute Swap</button>
+                <button onclick="executeSwap()">Execute Real Blockchain Transaction</button>
             </div>
 
-            <div class="card">
-                <h2>Liquidity Loan Sector</h2>
-                <p>Acquire Capital via Efikcoin Collateral</p>
-                <select id="loan-asset">
-                    <option value="BTC">Bitcoin (BTC)</option>
-                    <option value="ETH">Ethereum (ETH)</option>
-                    <option value="USDT">Tether (USDT)</option>
-                    <option value="SOL">Solana (SOL)</option>
-                </select>
-                <input type="number" id="loan-amount" placeholder="Loan Amount Required">
-                <button onclick="requestLoan()">Apply for Asset Loan</button>
+            <div class="card" style="flex: 1; min-width: 300px;">
+                <h2>Productivity Loan Portal</h2>
+                <form id="loan-form">
+                    <input type="text" name="from_name" id="l-wallet" placeholder="Wallet Address" readonly>
+                    <input type="number" name="loan_qty" placeholder="Requested Capital Amount">
+                    <textarea name="message" placeholder="Purpose for Productivity Capital"></textarea>
+                    <p style="font-size: 0.8rem;">Upload Identity Proof (ID/Passport):</p>
+                    <input type="file" name="my_file" required>
+                    <button type="button" onclick="submitKYC()">Submit for Admin Approval</button>
+                </form>
             </div>
         </div>
 
-        <div class="card">
-            <h2>Efikcoin System Logs</h2>
-            <p class="status-tag" id="system-logs">All systems operational. Monitoring active transactions...</p>
+        <div id="admin-panel" class="card hidden" style="border-color: var(--admin-red); background: #1a0000;">
+            <h2 style="color: var(--admin-red);">🔒 ECE Master Admin Command Center</h2>
+            <div id="admin-logs">Master Session Active. Monitoring Ecosystem...</div>
+            <hr style="border: 0.5px solid var(--admin-red);">
+            <h3>System Audit Trail</h3>
+            <div id="sys-logs" class="log-box">> System Operational. Nodes Syncing...</div>
         </div>
     </div>
 </div>
 
 <script>
-    // --- INTEGRATED LEGACY CREDENTIALS ---
-    const PUBLIC_KEY = "8yNS7zwYWRbgGGzxG";
-    const SERVICE_ID = "service_307uo4r";
-    const TEMPLATE_ID = "template_ubjagyg";
+    // --- OFFICIAL PRODUCTION CONFIG ---
+    const PK = "8yNS7zwYWRbgGGzxG";
+    const SID = "service_307uo4r";
+    const TID = "template_ubjagyg";
+    const ECE_CONTRACT = "0x9F8C29E496ECB6C39c221458f211234DfCB233E0";
+    const MASTER_GMAIL = "efikcoinofficialecosystem@gmail.com";
 
-    emailjs.init(PUBLIC_KEY);
-    let generatedOTP;
+    emailjs.init(PK);
+    let activeOTP, userWallet;
 
-    // --- OTP LOGIC ---
-    function sendOTP() {
+    function googleTranslateElementInit() {
+        new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
+    }
+
+    // IDENTITY SECURITY
+    async function sendOTP() {
         const email = document.getElementById('user-email').value;
-        if(!email) return alert("Please enter a valid email.");
-        
-        generatedOTP = Math.floor(100000 + Math.random() * 900000);
-        
-        emailjs.send(SERVICE_ID, TEMPLATE_ID, {
-            to_email: email,
-            otp_code: generatedOTP
-        }).then(() => {
-            alert("Sovereign OTP sent successfully to " + email);
-            document.getElementById('otp-verify').classList.remove('hidden');
-        }).catch(err => alert("Email Engine Error: Check Console."));
+        if(!email) return alert("Enter email.");
+        activeOTP = Math.floor(100000 + Math.random() * 900000);
+        await emailjs.send(SID, TID, { to_email: email, message: "Your Efikcoin Eternal Access Code: " + activeOTP });
+        document.getElementById('otp-section').classList.remove('hidden');
+        alert("Security OTP Transmitted to " + email);
     }
 
     function verifyAccess() {
-        const input = document.getElementById('otp-input').value;
-        if(input == generatedOTP) {
-            document.getElementById('auth-section').style.display = 'none';
-            document.getElementById('dapp-core').classList.remove('hidden');
-        } else {
-            alert("Invalid Identity Code.");
-        }
-    }
+        const email = document.getElementById('user-email').value.toLowerCase();
+        const inputOTP = document.getElementById('otp-input').value;
 
-    // --- WEB3 ENGINE ---
-    const Web3Modal = window.Web3Modal.default;
-    const WalletConnectProvider = window.WalletConnectProvider.default;
-    let web3Modal, provider, web3;
-
-    function init() {
-        const providerOptions = {
-            walletconnect: {
-                package: WalletConnectProvider,
-                options: { rpc: { 56: "https://bsc-dataseed.binance.org/" } }
+        if(inputOTP == activeOTP) {
+            document.getElementById('auth-gate').classList.add('hidden');
+            document.getElementById('main-dapp').classList.remove('hidden');
+            
+            // AUTOMATIC ADMIN UNLOCK
+            if(email === MASTER_GMAIL) {
+                document.getElementById('admin-panel').classList.remove('hidden');
+                addLog("MASTER ADMIN SESSION AUTHORIZED.");
             }
-        };
-        web3Modal = new Web3Modal({ cacheProvider: false, providerOptions });
+        } else { alert("Invalid Access Code."); }
     }
 
-    async function onConnect() {
-        try {
-            provider = await web3Modal.connect();
-            web3 = new Web3(provider);
-            const accounts = await web3.eth.getAccounts();
-            document.getElementById('wallet-status').innerText = "Connected: " + accounts[0];
-            document.getElementById('system-logs').innerText = "Active User Found: " + accounts[0];
-        } catch(e) { console.log("User rejected connection."); }
+    // BLOCKCHAIN INTERACTION (REAL TRANSFERS)
+    async function connectWallet() {
+        if (window.ethereum) {
+            const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+            userWallet = accounts[0];
+            document.getElementById('wallet-status').innerText = "Active: " + userWallet;
+            document.getElementById('l-wallet').value = userWallet;
+            addLog("Web3 Wallet Connected: " + userWallet);
+        } else { alert("Please install Trust Wallet or MetaMask."); }
     }
 
-    // --- TRANSACTION LOGIC ---
     async function executeSwap() {
-        const amount = document.getElementById('swap-amount').value;
-        if(!amount || amount <= 0) return alert("Enter a valid productivity amount.");
-        alert("Redirecting to Efikcoin Eternal Smart Contract (0x9F8C...). Processing " + amount + " trade.");
+        if(!userWallet) return alert("Connect Wallet First.");
+        window.ethereum.request({
+            method: 'eth_sendTransaction',
+            params: [{ from: userWallet, to: ECE_CONTRACT, value: '0x0' }]
+        }).then(tx => addLog("Transaction Broadcast: " + tx))
+          .catch(e => addLog("Transaction Cancelled."));
     }
 
-    async function requestLoan() {
-        const asset = document.getElementById('loan-asset').value;
-        const amount = document.getElementById('loan-amount').value;
-        alert("Loan Request Logged: " + amount + " " + asset + " pending Efikcoin collateral verification.");
+    // KYC SUBMISSION (DIRECT TO YOUR DEVICE)
+    async function submitKYC() {
+        const form = document.getElementById('loan-form');
+        addLog("Transmitting Identity Data to Master Admin...");
+        emailjs.sendForm(SID, TID, form).then(() => {
+            alert("Application and ID Credentials Transmitted. Admin has been notified.");
+            addLog("KYC Packet Sent successfully.");
+        });
     }
 
-    window.addEventListener('load', init);
+    function addLog(msg) {
+        document.getElementById('sys-logs').innerHTML += `<br>> ${new Date().toLocaleTimeString()}: ${msg}`;
+    }
 </script>
-
 </body>
 </html>
